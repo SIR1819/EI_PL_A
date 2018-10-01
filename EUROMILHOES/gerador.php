@@ -31,8 +31,9 @@ class Gerador
     }
 }
 
-// teste
+// teste // serviço
 
+header('Content-Type: application/json');
 $novachave = new Gerador();
 echo $novachave->asJSON();
 
