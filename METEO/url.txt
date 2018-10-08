@@ -1,0 +1,3 @@
+https://api.darksky.net/forecast/814e5b27d87937feb926c8b0178f77c3/41.751862,-8.786070
+41.751862
+-8.786070
