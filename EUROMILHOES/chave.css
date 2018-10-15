@@ -3,3 +3,29 @@ body {background-color: navy}
 h1 {color: cyan}
 .estrelas {color:gold}
 .numeros {color:white}
+
+
+ul {display: inline-block;}
+li {
+    font-size: 32px;
+    display: table-cell;
+    width: 50px;
+    height: 50px;
+    color: navy;
+    margin: 3px;
+    border-width: 2px;
+    border-radius: 26px;
+    text-align: center;
+    vertical-align: middle;
+    border-style: solid;
+    border-color: white;
+}
+
+ul.estrelas li {
+    background-color: yellow;
+
+}
+
+ul.numeros li {
+    background-color: lightgray;
+}

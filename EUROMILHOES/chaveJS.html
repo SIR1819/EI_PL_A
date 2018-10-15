@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Euromilhões</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="chave.css"/>
+    </head>
+    <body>
+        <h1>Euromilhões</h1>
+        <div>
+            <button id="bgera">Gera Chave</button>
+        </div>
+        <!--div>
+        <ul class="estrelas">
+            <li>5</li>
+            <li>11</li>
+        </ul>
+        <ul class="numeros">
+            <li>2</li>
+            <li>9</li>
+            <li>34</li>
+            <li>45</li>
+            <li>47</li>
+        </ul>
+        </div-->
+    </body>
+    <script>
+
+        myB = document.getElementById("bgera");
+        myB.onclick = geraChave;
+
+        geraChave();
+
+        function geraChave() {
+
+        var chave = {
+            "estrelas" : [],
+            "numeros" : []
+        };
+
+        console.log(chave);
+
+        function extract(min,max,num) {
+            key = [];
+
+            while(key.length < num) {
+                let rnumber = min + Math.floor(Math.random() * (max - min + 1));
+                //console.log(rnumber);
+                if (key.indexOf(rnumber) !== -1) {
+                    key.push(rnumber);
+                }
+            }
+            key.sort(function (a,b) {return (a-b);});
+            console.log(key);
+            return key;
+        }
+        
+        //function compare(a,b) {
+        //    return (a-b);
+        //}
+
+        chave.estrelas = extract(1,12,2);
+        chave.numeros = extract(1,50,5);
+
+        console.log(chave);
+
+        newDIV = document.createElement("div");
+
+        ULestrelas = array2HTMLList(chave.estrelas);
+        ULestrelas.className = "estrelas";
+
+        ULnumeros = array2HTMLList(chave.numeros);
+        ULnumeros.className = "numeros";
+
+        newDIV.appendChild(ULnumeros);
+        newDIV.appendChild(ULestrelas);
+
+        document.body.appendChild(newDIV);
+
+        function array2HTMLList(arr) {
+            var UL = document.createElement("ul");
+            for(let i=0; i < arr.length; i++) {
+                newLI = document.createElement("li");
+                newLI.innerHTML = arr[i];
+                UL.appendChild(newLI)
+            }
+            return UL;
+        }
+
+        }
+
+
+    </script>
+</html>

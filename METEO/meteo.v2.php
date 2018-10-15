@@ -1,7 +1,10 @@
 <?php
 $location = $_GET["location"];
 
+var_dump($location);
 echo $location;
+$location = urlencode($location);
+var_dump($location);
 
 // utilizar $location com a Mapquest API
 
