@@ -46,7 +46,7 @@
             while(key.length < num) {
                 let rnumber = min + Math.floor(Math.random() * (max - min + 1));
                 //console.log(rnumber);
-                if (key.indexOf(rnumber) !== -1) {
+                if (key.indexOf(rnumber) == -1) {
                     key.push(rnumber);
                 }
             }
