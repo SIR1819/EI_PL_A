@@ -8,7 +8,7 @@ class Gerador
 
     // construtor
     public function __construct () {
-        $this->estrelas = $this->sorteia(1,12,2);
+        $this->estrelas = $this->sorteia(1,12,3);
         $this->numeros = $this->sorteia(1,50,5);
     }
     
@@ -33,6 +33,7 @@ class Gerador
 
 // teste // serviço
 
+sleep(5);
 header('Content-Type: application/json');
 $novachave = new Gerador();
 echo $novachave->asJSON();
