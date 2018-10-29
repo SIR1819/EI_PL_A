@@ -1,43 +1,76 @@
 <?php
+
+if (isset($_GET['location'])) {
+    $locationDefined = true;
+} else {
+    $locationDefined = false;
+}
+
+if ($locationDefined) {
 $location = $_GET["location"];
 
-var_dump($location);
-echo $location;
-$location = urlencode($location);
-var_dump($location);
-
+// echo $location;
 // utilizar $location com a Mapquest API
+$location = urlencode($location);
 
-// obtidos os valores de lat e long, usar DarkSky
+//var_dump($location);
 
-$resposta = '{"info":{"statuscode":0,"copyright":{"text":"\u00A9 2018 MapQuest, Inc.","imageUrl":"http://api.mqcdn.com/res/mqlogo.gif","imageAltText":"\u00A9 2018 MapQuest, Inc."},"messages":[]},"options":{"maxResults":-1,"thumbMaps":false,"ignoreLatLngInput":false},"results":[{"providedLocation":{"location":"Viana do Castelo"},"locations":[{"street":"","adminArea6":"","adminArea6Type":"Neighborhood","adminArea5":"Viana do Castelo","adminArea5Type":"City","adminArea4":"","adminArea4Type":"County","adminArea3":"","adminArea3Type":"State","adminArea1":"PT","adminArea1Type":"Country","postalCode":"","geocodeQualityCode":"A5XAX","geocodeQuality":"CITY","dragPoint":false,"sideOfStreet":"N","linkId":"282644705","unknownInput":"","type":"s","latLng":{"lat":41.694908,"lng":-8.830461},"displayLatLng":{"lat":41.694908,"lng":-8.830461}}]}]}';
+$mapquestURL = "http://www.mapquestapi.com/geocoding/v1/address?key=XFNxQ82etHEFDAjhOSzhE4hozjwbRq45&location=$location";
 
-$respostaPHP = json_decode($resposta);
+$mapgeocode = file_get_contents($mapquestURL);
 
-//var_dump($respostaPHP);
+$mapgeocodePHP = json_decode($mapgeocode);
 
-$lat = $respostaPHP->results[0]->locations[0]->latLng->lat;
-echo($lat);
+$lat = $mapgeocodePHP->results[0]->locations[0]->latLng->lat;
+$lng = $mapgeocodePHP->results[0]->locations[0]->latLng->lng;
 
-/*
-
+//var_dump($lat);
+//echo("<hr>");
+//var_dump($lng);
 
 $APIKEY = "814e5b27d87937feb926c8b0178f77c3";
-//Outeiro
-$latitude = "41.751862";
-$longitude = "-8.786070";
-$BASEURL = "https://api.darksky.net/forecast/";
 
+$darkURL =  "https://api.darksky.net/forecast/"
+            .$APIKEY."/"
+            .$lat.",".$lng
+            ."?"
+            ."units=si";
 
-$url = $BASEURL . $APIKEY . "/" . $latitude . "," . $longitude;
+//var_dump($darkURL);
 
-$currentweatherJSON = file_get_contents($url);
+$darkWeather = file_get_contents($darkURL);
 
+$darkWeatherPHP = json_decode($darkWeather);
 
-$currentweather = json_decode($currentweatherJSON);
+$currentTemp = $darkWeatherPHP->currently->temperature;
+$currentIcon = $darkWeatherPHP->currently->icon;
 
+$iconURL = "https://darksky.net/images/weather-icons/".$currentIcon.".png";
 
-echo $currentweather->currently->temperature;
-*/
-
+//echo ($currentTemp);
+//echo("<hr>");
+}
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="meteo.v2.php" method="get">
+        <input type="text" name="location" id="ilocation" placeholder="Insira o local">
+        <input type="submit" value="Obter"/>
+    </form>
+    <?php
+    if($locationDefined) {
+        include("weather.inc");
+    }
+    ?>
+    
+</body>
+</html>
+

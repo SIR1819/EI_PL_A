@@ -54,11 +54,12 @@
         function obterChave2() {
             fetch('http://localhost/SIR1819/EI_PL_A/EUROMILHOES/gerador.php')
                 .then(function(response) {
-                    return response.json;
+                    return response.json();
                 })
                 .then(function(myJson) {
-                    console.log(myJson);
-                    console.log(JSON.stringify(myJson));
+                    afixaChave(myJson);
+                    //console.log(myJson);
+                    //console.log(JSON.stringify(myJson));
                 });
         }
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+var url = "http://www.mapquestapi.com/geocoding/v1/address?key=XFNxQ82etHEFDAjhOSzhE4hozjwbRq45&location=perre";
+
+
+fetch(url)
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(data) {
+        console.log(data);
+    })
+    .catch(function (error) {
+        console.log(error.message);
+    });
+
+/*
+var url2 = "https://api.darksky.net/forecast/814e5b27d87937feb926c8b0178f77c3/41.694908,-8.830461?units=si"
+
+fetch(url2)
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(data) {
+        console.log(data);
+    })
+    .catch(function (error) {
+        console.log(error.message);
+    });
+*/
+
+var lat= 41.694908;
+var lng = -8.830461;
+
+fetch("darkproxy.php?lat="+lat+"&lng="+lng)
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(data) {
+        console.log(data);
+    })
+    .catch(function (error) {
+        console.log(error.message);
+    });
+</script>
+</html>
