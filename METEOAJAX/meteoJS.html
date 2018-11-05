@@ -7,24 +7,70 @@
     <title>Document</title>
 </head>
 <body>
+
+    <form id="form01">
+        <input type="text" id="ilocation" name="location" placeholder="Introduza uma localidade">
+        <input type="submit" value="obter tempo"/>
+    </form>
+    <div id = "content">
+    </div>
     
 </body>
 
 <script>
 
-var url = "http://www.mapquestapi.com/geocoding/v1/address?key=XFNxQ82etHEFDAjhOSzhE4hozjwbRq45&location=perre";
 
+
+myForm = document.getElementById("form01");
+myForm.addEventListener("submit", obterTempo);
+
+function obterTempo(e) {
+e.preventDefault();
+
+
+var location = document.getElementById("ilocation").value;
+var lat;
+var lng;
+
+var url = "http://www.mapquestapi.com/geocoding/v1/address?key=XFNxQ82etHEFDAjhOSzhE4hozjwbRq45&location="+location;
 
 fetch(url)
-    .then(function(resp) {
+    .then(function(resp) {  
         return resp.json();
     })
     .then(function(data) {
         console.log(data);
+        lat = data.results[0].locations[0].latLng.lat;
+        lng = data.results[0].locations[0].latLng.lng;
+        fetch("darkproxy.php?lat="+lat+"&lng="+lng)
+            .then(function(resp) {
+                return resp.json();
+            })
+            .then(function(data) {
+                console.log(data);
+                console.log(data.currently.temperature);
+                postWeather(data,location);
+
+            })
+            .catch(function (error) {
+            console.log(error.message);
+        });
     })
     .catch(function (error) {
         console.log(error.message);
     });
+}
+
+function postWeather(data, location) {
+    
+    myTemp = data.currently.temperature;
+    myContentDiv = document.getElementById("content");
+    newP = document.createElement("p");
+    newP.innerHTML = "A temperatura em " + location + " é : " + myTemp;
+    myContentDiv.appendChild(newP);
+    
+}
+
 
 /*
 var url2 = "https://api.darksky.net/forecast/814e5b27d87937feb926c8b0178f77c3/41.694908,-8.830461?units=si"
@@ -40,7 +86,7 @@ fetch(url2)
         console.log(error.message);
     });
 */
-
+/*
 var lat= 41.694908;
 var lng = -8.830461;
 
@@ -54,5 +100,7 @@ fetch("darkproxy.php?lat="+lat+"&lng="+lng)
     .catch(function (error) {
         console.log(error.message);
     });
+
+*/
 </script>
 </html>
