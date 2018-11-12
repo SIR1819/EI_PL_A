@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="dump.php" method="get">
+    <fieldset>
+        <legend>dados biográficos</legend>
+        <label for="inome">nome:</label>
+        <input type="text" id="inome" name="nome" placeholder="Insira um Nome"/>
+        <br/>
+        <label for="iidade">idade:</label>
+        <input type="number" id="iidade" name="idade" required="required"/>
+        <label for="inacionalidade">nacionalidade</label>
+        <select name="nacionalidade" id="inacionalidade">
+            <optgroup label="europa">
+                <option value="PT">Portugal</option>
+                <option disabled="disabled" value="ES">Espanha</option>
+            </optgroup>
+            <optgroup label="resto do mundo">
+                <option selected="selected" value="TV">Tuvalu</option>
+            </optgroup>
+        </select>
+        <br/>
+        <input type="hidden" name="uid" value="133">
+
+    </fieldset>
+    <fieldset>
+        <legend>Qual o álbum dos Queen que gostas +</legend>
+        <label><input required="required" type="radio" name="album" value="a01">Flash Gordon</label>
+        <label><input type="radio" name="album" value="a02">Night at the Opera</label>
+        <label><input type="radio" name="album" value="a03">A Day at the Races</label>
+        <label><input type="radio" name="album" value="a04">News of the World</label>
+        <label><input checked="checked" type="radio" name="album" value="a05">A Kind of Magic</label>
+    </fieldset>
+    <fieldset>
+        <legend>Quais o elementos dos Queen que gostas +</legend>
+            <label><input type="checkbox" name="membro[]" value="m1">Freddy Mercury</label>
+            <label><input checked="checked"type="checkbox" name="membro[]" value="m2">Brian May</label>
+            <label><input type="checkbox" name="membro[]" value="m3">John Deacon</label>
+            <label><input type="checkbox" name="membro[]" value="m4">Roger Taylor</label>
+        </fieldset>
+    <fieldset>
+        <legend>comentário</legend>
+        <textarea name="comment" cols="100" rows="5"></textarea>
+    </fieldset>
+        <legend>submissão</legend>
+        <input type="submit" name="submitb" value="Enviar"/>
+        <input type="reset" name="resetb" value="Limpar"/>
+    </fieldset>
+    </form>
+</body>
+</html>
