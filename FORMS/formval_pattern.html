@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="dump.php">
+        Codigo-Postal:
+        <input type="text" name="CP" 
+        pattern="\d{4}-[0-9]{3}" title="código postal no formato LLLL-RRR">
+
+        Password: <input type="text" name="pass" 
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).{4,10}" title="Deve conter uma minuscula, uma maiúscula, um símbolo e um dígito">
+        <input type="submit">
+    </form>
+        
+</body>
+</html>
