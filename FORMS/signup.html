@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIGNUP</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<form action="signup.php" method="POST">
+
+<label for="iusername"> username: </label>
+<input type="text" id="iusername" name="username"/>
+
+<label for="ipass1"> password: </label>
+<input type="password" id="ipass1" name="password1"/>
+
+<label for="ipass2"> password: </label>
+<input type="password" id="ipass2" name="password2"/>
+
+<input type = "submit" value="registar"/>
+
+</form>
+</body>
+<script type="text/javascript">
+	
+	$("#iusername").keyup(function (event) {
+        console.log($("#iusername").val());
+		$.ajax({
+			url: "checkuser.php",
+			dataType : "json",
+			method : "GET",
+			data : {
+				"username" : $("#iusername").val(),
+			},
+			success : function (data) {
+				console.log(data);
+				if (data.status) {
+					$("#iusername").css("background-color",'lime');
+				} else {
+					$("#iusername").css("background-color",'pink');
+				}
+			}
+		})
+	})
+</script>
+</html>
