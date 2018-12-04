@@ -1,0 +1,108 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/screen.css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+		<script>
+			$(document).ready(function () {
+				$("#f1").validate(
+					{
+					rules : {
+						vfname: {
+							required: true,
+							rangelength : [3,6]
+						},
+						"vlang[]": {
+							required: true,
+							minlength: 2,
+						},
+						vuname: {
+							required : true,
+							rangelength : [3,4],
+							remote: {
+								url: "checkuser.php",
+								data: {
+									username: function () {
+										return $("#iusername").val();
+										}
+								},
+							},
+						}
+					},
+					messages : {
+						vfname: {
+							required: "you must provide your name",
+							rangelength :"provided name must have 3 to 6 chars "
+						},
+						"vlang[]": "you must indicate at least 2 languages"
+						
+					}	
+				}
+				)
+			})
+		</script>
+		
+	</head>
+	<body>
+		<form class="cmxform" action="dump.php" method="GET" id="f1" onsubmit="return validate();">
+			<fieldset id="fs1">
+				<legend>basic biographic data</legend>
+				<p>
+				<label for="ititle">Title</label>
+				<select id="ititle" name="vtitle[]">
+					<optgroup ></optgroup>
+					<optgroup label="Titles for the people">
+					<option value="0">Mr</option>
+					<option value="1">Mrs</option>
+					<option value="2">Child</option>
+					</optgroup>
+					<optgroup label="Titles for the Royalty">
+					<option value="10">Queen</option>
+					<option value="11">King</option>
+					<option value="12">Prince(ss)</option>
+					</optgroup>
+				</select>
+				</p>
+				<p>
+				<label for="ifname">First Name</label>
+				<input type="text" name="vfname" id="ifname">
+				</p>
+				<p>	
+				<label for="iuname">Username</label>
+				<input type="text" name="vuname" id="iuname">
+				</p>
+			</fieldset>
+			<fieldset id="fs2">
+				<legend>gender</legend>
+				<label for="igenderM">Male: </label>
+				<input type="radio" id="igenderM" name="vgender" value="M" checked="checked"/>
+				
+				<label for="igenderF">Female: </label>
+				<input type="radio" id="igenderF" name="vgender" value="F"/>
+				
+			</fieldset>
+			<fieldset id="fs3">
+				<legend>Languages</legend>
+				<label for="ilangFR">French: </label>
+				<input type="checkbox" id="ilangFR" name="vlang[]" value="FR">
+				<br/>
+				<label for="ilangPL">Polish: </label>
+				<input type="checkbox" id="ilangPL" name="vlang[]" value="PL">
+				<br/>
+				<label for="ilangES">Spanish: </label>
+				<input type="checkbox" id="ilangES" name="vlang[]" value="ES">
+				<br>
+				<label class="error" for="vlang[]"></label>
+			</fieldset>
+		
+			
+			<fieldset id="fsx">
+				<legend>submission</legend>
+				<input id="isubmit" type="submit" value="Yes! I want to submit"/>
+				<input id="ireset" type="reset" value="Please clear the form"/>
+			</fieldset>
+			
+			
+		</form>
+	</body>
+</html>

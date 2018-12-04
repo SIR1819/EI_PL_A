@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SIGNUP</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<title>SIGNUP</title>
+	<meta charset="utf-8">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<style>
+		form input.error {
+			background-color: pink !important;
+		}
+		form input.valid {
+			background-color: lime !important;
+					}
+	</style>
 </head>
 <body>
 
-<form action="signup.php" method="POST">
+<form action="signup.php" method="POST" id="f1">
 
 <label for="iusername"> username: </label>
-<input type="text" id="iusername" name="username"/>
+<input type="text" id="iusername" name="username" pattern="\w{3,8}"/>
 
 <label for="ipass1"> password: </label>
-<input type="password" id="ipass1" name="password1"/>
+<input type="text" id="ipass1" name="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).{4,10}"/>
 
 <label for="ipass2"> password: </label>
-<input type="password" id="ipass2" name="password2"/>
+<input type="text" id="ipass2" name="password2"/>
 
 <input type = "submit" value="registar"/>
 
@@ -23,6 +32,10 @@
 </body>
 <script type="text/javascript">
 	
+
+	var userisvalid = true;
+
+	//$("#iusername").focusout(function (event) {
 	$("#iusername").keyup(function (event) {
         console.log($("#iusername").val());
 		$.ajax({
@@ -35,12 +48,36 @@
 			success : function (data) {
 				console.log(data);
 				if (data.status) {
-					$("#iusername").css("background-color",'lime');
+					//$("#iusername").css("background-color",'lime');
+					$("#iusername").removeClass("error");
+					$("#iusername").addClass("valid");
+					userisvalid = true;
 				} else {
-					$("#iusername").css("background-color",'pink');
+					//$("#iusername").css("background-color",'pink');
+					$("#iusername").removeClass("valid").addClass("error");
+					userisvalid = false;
 				}
 			}
 		})
 	})
+
+	$("#f1").submit(validate);
+
+	function validate(event) {
+		$("#ipass1").removeClass("valid").removeClass("error");
+		if (!userisvalid) {
+			alert("username existente");
+			event.preventDefault();
+			//return false;
+		} else if ($("#ipass1").val() !== $("#ipass2").val()){
+			alert("passwords não coincidem ");
+			$("#ipass1").removeClass("valid").addClass("error");
+			$("#ipass2").removeClass("valid").addClass("error");
+			event.preventDefault();
+			//return false;
+		} else {
+			return true;
+		}
+	}
 </script>
 </html>
